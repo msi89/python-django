@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/ckam/webroot/tests/python/django-teacher-net/environment/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}
