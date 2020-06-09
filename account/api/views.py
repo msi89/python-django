@@ -23,7 +23,7 @@ def getUser(request, pk):
     try:
         account = Account.objects.get(pk=pk)
     except Account.DoesNotExist:
-        return JsonResponse({'error': 'account does not exists'}, status=404)
+        return HttpResponse(status=404)
 
     if request.method == 'GET':
         serializer = AccountSerializer(account)
@@ -63,7 +63,16 @@ def signUp(request):
         return Response(data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def getCurrentUser(request):
     serializer = AccountSerializer(request.user)
     return Response(serializer.data)
+
+
+@api_view(['GET', 'POST'])
+def Logout(request):
+    try:
+        request.user.auth_token.delete()
+        return HttpResponse(status=204)
+    except (request.user.auth_token.ObjectDoesNotExist):
+        return HttpResponse(status=404)
